@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Client Home</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
+	<div class="container">
+		<center>
+			<h1>
+				<p>
+					<u>Client Home Page</u>
+				</p>
+			</h1>
+			<br></br> <br></br> <br></br>
+		</center>
+	</div>
+
+
+</h:head>
+<!--  
+	<style>
+body {
+	background-image:
+		url("http://www.akcli-voh.org/wp-content/uploads/2013/10/background2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	background-position: center;
+}
+</style>
+  -->
+
+<h:body>
+
+	<style type="text/css">
+.btn-space {
+	margin-right: 10px;
+}
+</style>
+
+	<style type="text/css">
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+</style>
+
+	<div class="container">
+		<h:form>
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="Account Balance And Account History"
+				action="#{accountBalance.accountBalanceHistory}" />
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="logout" action="#{pageNavigation.loginOutput}" />
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="Edit Profile"
+				action="#{pageNavigation.clientProfileUpdateOutput}" />
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="Search/View/Buy Stock"
+				action="#{pageNavigation.searchViewBuy}" />
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="Select/Delete Manager"
+				action="clientManager" />
+
+		</h:form>
+
+		<h:form>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<br> </br>
+
+					<h1>
+						<p class="text-success">Welcome #{login.fullName}, What's Up?</p>
+					</h1>
+
+					<h2>
+						<p class="text-danger">Your Personal Details</p>
+					</h2>
+
+					<h4>Full Name:</h4>
+					<h4>
+						<p class="text-success">#{login.fullName}</p>
+					</h4>
+					<br></br>
+
+					<h4>Email:</h4>
+					<h4>
+						<p class="text-success">#{login.emailID}</p>
+					</h4>
+					<br></br>
+
+					<h4>Mobile Number:</h4>
+					<h4>
+						<p class="text-success">#{login.mobileNumber}</p>
+					</h4>
+					<br></br>
+					
+					<h4>Manager Name:</h4>
+					<h4>
+						<p class="text-success">#{login.managerName}</p>
+					</h4>
+					<br></br>
+
+				</div>
+			</div>
+		</h:form>
+		<br></br>
+		<div class="well">
+			<h1>
+				<p class="text-success">Search Data</p>
+			</h1>
+			<div class="row">
+
+				<h:form>
+					<h4>
+						<label for="sel1">Stock</label>
+					</h4>
+					<h:selectOneMenu id="symbol" value="#{stockApiBean.selectedSymbol}">
+						<f:selectItems value="#{stockApiBean.availableSymbols}" />
+					</h:selectOneMenu>
+					<br></br>
+					<h4>
+						<label for="sel1">Interval: </label>
+					</h4>
+					<h:selectOneMenu id="interval"
+						value="#{stockApiBean.selectedInterval}">
+						<f:selectItems value="#{stockApiBean.availableIntervals}" />
+					</h:selectOneMenu>
+					<br />
+					<h:commandButton class="btn btn-primary black-background white"
+						value="Get Data" action="#{stockApiBean.timeseries}" />
+				</h:form>
+			</div>
+
+			<h:panelGroup rendered="#{not empty stockApiBean.table1Markup}">
+				<h:outputText value="#{stockApiBean.table1Markup}" escape="false"
+					styleClass="preformatted" />
+			</h:panelGroup>
+
+			<h:panelGroup rendered="#{not empty stockApiBean.table2Markup}">
+				<h:outputText value="#{stockApiBean.table2Markup}" escape="false"
+					styleClass="preformatted" />
+			</h:panelGroup>
+		</div>
+
+	</div>
+</h:body>
+</html>

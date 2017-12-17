@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Client Request</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
+	<div class="container">
+		<center>
+			<h1>
+				<p>
+					<u>Client Request</u>
+				</p>
+			</h1>
+			<br></br> <br></br> <br></br>
+		</center>
+	</div>
+
+
+</h:head>
+<!--  
+	<style>
+body {
+	background-image:
+		url("http://www.akcli-voh.org/wp-content/uploads/2013/10/background2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	background-position: center;
+}
+</style>
+  -->
+
+<h:body>
+
+	<style type="text/css">
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+</style>
+
+
+	<div class="container">
+		<h:form>
+			<div class="float-right">
+				<br></br> <br></br> <br></br>
+				<h:commandButton class="btn btn-primary black-background white"
+					value="logout" action="#{pageNavigation.loginOutput}" />
+				<br></br> <br></br>
+				<h:commandButton class="btn btn-primary black-background white"
+					value="Back" action="managerHome" />
+				<br></br> <br></br>
+			</div>
+		</h:form>
+
+
+		<h:dataTable value="#{clientRequest.getUserList()}" var="u" border="1">
+
+			<h:column>
+				<f:facet name="header">
+Purchase ID
+</f:facet>
+#{u.id}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+Request ID
+</f:facet>
+#{u.id}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+UID
+</f:facet>
+#{u.uid}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+Stock Symbol
+</f:facet>
+#{u.stock_symbol}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+Quantity
+</f:facet>
+#{u.qty}
+</h:column>
+
+
+			<h:column>
+				<f:facet name="header">
+Puchased Or Sell
+</f:facet>
+#{u.purchaseOrSell}
+</h:column>
+
+		</h:dataTable>
+		<br></br>
+
+
+		<div class="well">
+			<h1>
+				<p class="text-success">Search stocks as per client requests</p>
+			</h1>
+			<div class="row">
+
+				<h:form>
+					<h4>
+						<label for="sel1">Stock</label>
+					</h4>
+					<h:selectOneMenu id="symbol"
+						value="#{stockApiBean.selectedSymbol}">
+						<f:selectItems value="#{stockApiBean.availableSymbols}" />
+					</h:selectOneMenu>
+					<br></br>
+					<h4>
+						<label for="sel1">Interval: </label>
+					</h4>
+					<h:selectOneMenu id="interval"
+						value="#{stockApiBean.selectedInterval}">
+						<f:selectItems value="#{stockApiBean.availableIntervals}" />
+					</h:selectOneMenu>
+					<br />
+					<h:commandButton class="btn btn-primary black-background white"
+						value="Get Data" action="#{stockApiBean.timeseries2}" />
+				</h:form>
+			</div>
+
+			<h:panelGroup rendered="#{not empty stockApiBean.table1Markup}">
+				<h:outputText value="#{stockApiBean.table1Markup}" escape="false"
+					styleClass="preformatted" />
+			</h:panelGroup>
+
+			<h:panelGroup rendered="#{not empty stockApiBean.table2Markup}">
+				<h:outputText value="#{stockApiBean.table2Markup}" escape="false"
+					styleClass="preformatted" />
+			</h:panelGroup>
+		</div>
+	</div>
+
+</h:body>
+</html>

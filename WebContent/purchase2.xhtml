@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Client Request</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
+	<title>Purchase Stock</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/style.css"></link>
+
+	<script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		function calculateAmount() {
+			$("#purchase .amt").val(
+					($("#purchase .purchasePrice").val() * $("#purchase .qty")
+							.val()).toFixed(2));
+		}
+	</script>
+
+	<div class="container">
+		<center>
+			<h1>
+				<p>
+					<u>Purchase Or Sell Stock</u>
+				</p>
+			</h1>
+		</center>
+	</div>
+	<br></br>
+	<br></br>
+</h:head>
+
+<body>
+
+	<style type="text/css">
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+</style>
+
+	<style type="text/css">
+.btn-space {
+	margin-right: 10px;
+}
+</style>
+
+	<h:form>
+		<div class="container">
+			<div class="float-right">
+				<br></br> <br></br> <br></br>
+				<h:commandButton class="btn btn-primary black-background white"
+					value="logout" action="#{pageNavigation.loginOutput}" />
+				<br></br> <br></br>
+				<h:commandButton class="btn btn-primary black-background white"
+					value="Back" action="clientHome" />
+			</div>
+		</div>
+	</h:form>
+	<!-- main column -->
+	<div class="container">
+		<div class="col-sm-6">
+			<h:form id="purchase">
+				<centre>
+				<h2>Stock Name:</h2>
+				<h:inputText binding="#{purchaseSymbol}" id="symbol"
+					styleClass="form-control purchaseSymbol"
+					value="#{stockApiBean.purchaseSymbol}" required="true" /> <br />
+				<h2>Price:</h2>
+				<h:inputText binding="#{purchasePrice}" id="price"
+					styleClass="form-control purchasePrice"
+					value="#{stockApiBean.purchasePrice}" required="true" /> <br />
+				<h2>Quantity:</h2>
+				<h:inputText binding="#{qty}" id="qty" styleClass="form-control qty"
+					value="#{stockApiBean.qty}" required="true"
+					onkeyup="calculateAmount()" /> <br />
+				<h2>Amount:</h2>
+				<h:inputText binding="#{amt}" id="amt" styleClass="form-control amt"
+					value="#{stockApiBean.amt}" required="true" /> <br />
+				<h2>UID:</h2>
+				<h:inputText binding="#{uidd}" id="uidd"
+					styleClass="form-control uidd" value="#{stockApiBean.uidd}"
+					required="true" /> <br />
+					<h2>RID:</h2>
+				<h:inputText binding="#{rid}" id="rid"
+					styleClass="form-control midd" value="#{stockApiBean.rid}"
+					required="true" /> <br />
+				<h:commandButton
+					class="btn btn-primary black-background white btn-space"
+					value="Buy"
+					action="#{stockApiBean.createDbRecordPurchase(rid.value, uidd.value, purchaseSymbol.value, purchasePrice.value, qty.value, amt.value)}" />
+				<h:commandButton
+					class="btn btn-primary black-background white btn-space"
+					value="Sell"
+					action="#{stockApiBean.createDbRecordSell(rid.value, uidd.value, purchaseSymbol.value, purchasePrice.value, qty.value, amt.value)}" />
+				<h2>
+					<h:messages style="color: red;" />
+				</h2>
+				</centre>
+			</h:form>
+		</div>
+
+
+		<h:dataTable value="#{clientRequest.getUserList()}" var="u" border="1">
+
+			<h:column>
+				<f:facet name="header">
+Request ID
+</f:facet>
+#{u.id}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+UID
+</f:facet>
+#{u.uid}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+Stock Symbol
+</f:facet>
+#{u.stock_symbol}
+</h:column>
+
+			<h:column>
+				<f:facet name="header">
+Quantity
+</f:facet>
+#{u.qty}
+</h:column>
+
+
+			<h:column>
+				<f:facet name="header">
+Puchased Or Sell
+</f:facet>
+#{u.purchaseOrSell}
+</h:column>
+
+		</h:dataTable>
+	</div>
+</body>
+</html>

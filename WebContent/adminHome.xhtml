@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Manager List</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
+	<div class="container">
+		<center>
+			<h1>
+				<p>
+					<u>Manager's List For Approval or Disapproval</u>
+				</p>
+			</h1>
+			<br></br> <br></br> <br></br>
+		</center>
+	</div>
+
+
+</h:head>
+<!--  
+	<style>
+body {
+	background-image:
+		url("http://www.akcli-voh.org/wp-content/uploads/2013/10/background2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	background-position: center;
+}
+</style>
+  -->
+
+<div class="container">
+	<h:form>
+		<h4>Enter 'Manager ID' from list to Approve or Disapprove.</h4>
+		<h:inputText value="#{adminManager.managerID}" id="mi" required="true"
+			requiredMessage="Manager ID is Mandatory Field" />
+		<br> </br>
+		<h:commandButton
+			class="btn btn-primary black-background white btn-space"
+			value="Approve Manager" action="#{adminManager.approveManager}" />
+		<h:commandButton
+			class="btn btn-primary black-background white btn-space"
+			value="Disapprove Manager" action="#{adminManager.disapproveManager}" />
+		<h3>
+			<font color="red"><h:messages></h:messages></font>
+		</h3>
+		<br></br>
+		<br><br></br></br>
+	</h:form>
+
+</div>
+
+<h:body>
+
+	<style type="text/css">
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+</style>
+	<style type="text/css">
+.btn-space {
+	margin-right: 10px;
+}
+</style>
+
+	<h:dataTable value="#{adminManager.getUserList()}" var="u" border="1">
+		<h:column>
+			<f:facet name="header">
+Manager ID
+</f:facet>
+#{u.mid}
+</h:column>
+
+		<h:column>
+			<f:facet name="header">
+Full Name
+</f:facet>
+#{u.fullName}
+</h:column>
+
+		<h:column>
+			<f:facet name="header">
+Email ID
+</f:facet>
+#{u.emailID}
+</h:column>
+
+		<h:column>
+			<f:facet name="header">
+Mobile Number
+</f:facet>
+#{u.mobileNumber}
+</h:column>
+
+		<h:column>
+			<f:facet name="header">
+Comapany Name
+</f:facet>
+#{u.companyName}
+</h:column>
+
+		<h:column>
+			<f:facet name="header">
+Fee
+</f:facet>
+#{u.fee}
+</h:column>
+
+
+	</h:dataTable>
+<br></br><br></br>
+<h:form>
+	<h:commandButton
+		class="btn btn-primary black-background white btn-space"
+		value="Logout" action="Login" />
+</h:form>
+</h:body>
+
+</html>

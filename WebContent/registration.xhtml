@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+<!--
+	<style>
+body {
+	background-image:
+		url("http://www.collegeside.org/wp-content/uploads/sites/14/dynamik-gen/theme/images/blue-bg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	background-position: center;
+}
+</style>
+-->
+	<title>WELCOME</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous"></link>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+	<div class="container">
+		<center>
+			<h1>
+				<p>
+					<u>MyStock Registration</u>
+				</p>
+			</h1>
+			<br></br>
+			<h2>Register For Free Here</h2>
+			<br></br> <br></br> <br></br>
+		</center>
+	</div>
+
+</h:head>
+
+
+<h:body>
+
+	<style type="text/css">
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+</style>
+
+	<h:form>
+		<div class="container">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<br> </br>
+					<h2>Please select one:</h2>
+					<h2>
+						<p class="text-danger">NOTE: If you are registering as
+							'MANAGER', your account first will be verified by the
+							Administrator only after that you can 'LOGIN'</p>
+					</h2>
+					<br> </br> Manager? Please Register Here:
+					<h:commandButton class="btn btn-primary black-background white"
+						value="Manager Registration" action="#{pageNavigation.managerRegistrationOutput}" />
+					<br> </br> Client? Please Register Here:
+					<h:commandButton class="btn btn-primary black-background white"
+						value="Client Registration" action="#{pageNavigation.clientRegistrationOutput}" />
+					<br></br> <br></br> <br></br> Back to Welcome Page:
+					<h:commandButton class="btn btn-primary black-background white"
+						value="Welcome Page" action="#{pageNavigation.indexOutput}" />
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+</h:body>
+
+
+</html>
