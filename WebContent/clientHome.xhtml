@@ -30,8 +30,7 @@
 
 
 </h:head>
-<!--  
-	<style>
+<style>
 body {
 	background-image:
 		url("http://www.akcli-voh.org/wp-content/uploads/2013/10/background2.jpg");
@@ -41,7 +40,7 @@ body {
 	background-position: center;
 }
 </style>
-  -->
+
 
 <h:body>
 
@@ -49,6 +48,7 @@ body {
 .btn-space {
 	margin-right: 10px;
 }
+
 </style>
 
 	<style type="text/css">
@@ -69,16 +69,17 @@ body {
 				action="#{accountBalance.accountBalanceHistory}" />
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
-				value="logout" action="#{pageNavigation.loginOutput}" />
+				value="logout" action="#{pageNavigation.logout1}" />
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
 				value="Edit Profile"
 				action="#{pageNavigation.clientProfileUpdateOutput}" />
-			<h:commandButton
+			<!-- <h:commandButton
 				class="btn btn-primary black-background white btn-space"
 				value="Search/View/Buy Stock"
 				action="#{pageNavigation.searchViewBuy}" />
-			<h:commandButton
+ -->
+ 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
 				value="Select/Delete Manager" action="clientManager" />
 			<h:commandButton
