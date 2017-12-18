@@ -21,7 +21,7 @@
 		<center>
 			<h1>
 				<p>
-					<u>Client Home Page</u>
+					<u>Client Watch List</u>
 				</p>
 			</h1>
 			<br></br> <br></br> <br></br>
@@ -65,72 +65,30 @@ body {
 		<h:form>
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
-				value="Account Balance And Account History"
-				action="#{accountBalance.accountBalanceHistory}" />
+				value="Back" action="clientHome" />
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
-				value="logout" action="#{pageNavigation.loginOutput}" />
-			<h:commandButton
-				class="btn btn-primary black-background white btn-space"
-				value="Edit Profile"
-				action="#{pageNavigation.clientProfileUpdateOutput}" />
-			<h:commandButton
-				class="btn btn-primary black-background white btn-space"
-				value="Search/View/Buy Stock"
-				action="#{pageNavigation.searchViewBuy}" />
-			<h:commandButton
-				class="btn btn-primary black-background white btn-space"
-				value="Select/Delete Manager" action="clientManager" />
-			<h:commandButton
-				class="btn btn-primary black-background white btn-space"
-				value="Watch List" action="clientWatchlist" />
-
+				value="logout" action="#{pageNavigation.logout1}" />
 		</h:form>
 
-		<h:form>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<br> </br>
 
-					<h1>
-						<p class="text-success">Welcome #{login.fullName}, What's Up?</p>
-					</h1>
+		<h:dataTable value="#{watchlist.getUserList()}" var="u"
+			border="1">
 
-					<h2>
-						<p class="text-danger">Your Personal Details</p>
-					</h2>
+			<h:column>
+				<f:facet name="header">
+Stock Symbol
+</f:facet>
+#{u.stock_symbol}
+</h:column>
 
-					<h4>Full Name:</h4>
-					<h4>
-						<p class="text-success">#{login.fullName}</p>
-					</h4>
-					<br></br>
 
-					<h4>Email:</h4>
-					<h4>
-						<p class="text-success">#{login.emailID}</p>
-					</h4>
-					<br></br>
 
-					<h4>Mobile Number:</h4>
-					<h4>
-						<p class="text-success">#{login.mobileNumber}</p>
-					</h4>
-					<br></br>
+		</h:dataTable>
+		<br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 
-					<h4>Manager Name:</h4>
-					<h4>
-						<p class="text-success">#{login.managerName}</p>
-					</h4>
-					<br></br>
-					<h3>
-						<font color="red"><h:messages></h:messages></font>
-					</h3>
 
-				</div>
-			</div>
-		</h:form>
-		<br></br>
+
 		<div class="well">
 			<h1>
 				<p class="text-success">Search Data</p>
@@ -154,7 +112,7 @@ body {
 					</h:selectOneMenu>
 					<br />
 					<h:commandButton class="btn btn-primary black-background white"
-						value="Get Data" action="#{stockApiBean.timeseries}" />
+						value="Get Data" action="#{stockApiBean.timeseries3}" />
 				</h:form>
 			</div>
 

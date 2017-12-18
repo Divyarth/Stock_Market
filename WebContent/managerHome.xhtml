@@ -69,8 +69,7 @@ body {
 				action="#{accountBalanceManager.accountBalanceHistory}" />
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
-				value="Update Profile"
-				action="managerProfileUpdate" />
+				value="Update Profile" action="managerProfileUpdate" />
 			<h:commandButton
 				class="btn btn-primary black-background white btn-space"
 				value="logout" action="#{pageNavigation.logout}" />
@@ -81,6 +80,9 @@ body {
 				class="btn btn-primary black-background white btn-space"
 				value="Search/View/Buy Stock"
 				action="#{pageNavigation.searchViewBuy}" />
+			<h:commandButton
+				class="btn btn-primary black-background white btn-space"
+				value="Watch List" action="managerWatchlist" />
 		</h:form>
 
 		<h:form>
@@ -131,6 +133,10 @@ body {
 						<p class="text-success">#{login1.fee}</p>
 					</h4>
 					<br></br>
+					<h3>
+						<font color="red"><h:messages></h:messages></font>
+					</h3>
+
 				</div>
 			</div>
 		</h:form>

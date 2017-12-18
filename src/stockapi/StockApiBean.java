@@ -630,6 +630,46 @@ public class StockApiBean {
 		return "purchase2";
 	}
 
+	public String createDbRecordWatchList(String symbol) {
+		try {
+			Connection conn = DataConnect.getConnection();
+			Statement statement = conn.createStatement();
+
+			Integer uid = Integer.parseInt(
+					(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("uid"));
+
+			statement.executeUpdate(
+					"INSERT INTO `watchlist` (`stock_symbol`, `uid`) " + "VALUES ('" + symbol + "', '" + uid + "')");
+			statement.close();
+			conn.close();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully Added To Watch List", ""));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "clientHome";
+	}
+
+	public String createDbRecordWatchList1(String symbol) {
+		try {
+			Connection conn = DataConnect.getConnection();
+			Statement statement = conn.createStatement();
+
+			Integer mid = Integer.parseInt(
+					(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mid"));
+
+			statement.executeUpdate(
+					"INSERT INTO `watchlist` (`stock_symbol`, `mid`) " + "VALUES ('" + symbol + "', '" + mid + "')");
+			statement.close();
+			conn.close();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully Added To Watch List", ""));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "managerHome";
+	}
+
 	public void installAllTrustingManager() {
 		TrustManager[] trustAllCerts;
 		trustAllCerts = new TrustManager[] { new X509TrustManager() {
@@ -826,6 +866,128 @@ public class StockApiBean {
 						this.table2Markup += "<td><a class='btn btn-success' href='" + path
 								+ "/faces/purchase2.xhtml?symbol=" + symbol + "&price="
 								+ subJsonObj.getString("4. close") + "'>Buy Or Sell Stock</a></td>";
+					}
+
+					this.table2Markup += "</tr>";
+					i++;
+					price1 = subJsonObj.getString("4. close");
+				}
+				this.table2Markup += "</tbody></table>";
+			}
+		}
+		return;
+	}
+
+	public void timeseries3() throws MalformedURLException, IOException {
+
+		installAllTrustingManager();
+
+		// System.out.println("selectedItem: " + this.selectedSymbol);
+		// System.out.println("selectedInterval: " + this.selectedInterval);
+		String symbol = this.selectedSymbol;
+		String interval = this.selectedInterval;
+		String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval="
+				+ interval + "&apikey=" + API_KEY;
+
+		this.table1Markup += "URL::: <a href='" + url + "'>Data Link</a><br>";
+		InputStream inputStream = new URL(url).openStream();
+
+		// convert the json string back to object
+		JsonReader jsonReader = Json.createReader(inputStream);
+		JsonObject mainJsonObj = jsonReader.readObject();
+		for (String key : mainJsonObj.keySet()) {
+			if (key.equals("Meta Data")) {
+				this.table1Markup = null; // reset table 1 markup before repopulating
+				JsonObject jsob = (JsonObject) mainJsonObj.get(key);
+				this.table1Markup += "<style>#detail >tbody > tr > td{ text-align:center;}</style><b>Stock Details</b>:<br>";
+				this.table1Markup += "<table>";
+				this.table1Markup += "<tr><td>Information</td><td>" + jsob.getString("1. Information") + "</td></tr>";
+				this.table1Markup += "<tr><td>Symbol</td><td>" + jsob.getString("2. Symbol") + "</td></tr>";
+				this.table1Markup += "<tr><td>Last Refreshed</td><td>" + jsob.getString("3. Last Refreshed")
+						+ "</td></tr>";
+				this.table1Markup += "<tr><td>Interval</td><td>" + jsob.getString("4. Interval") + "</td></tr>";
+				this.table1Markup += "<tr><td>Output Size</td><td>" + jsob.getString("5. Output Size") + "</td></tr>";
+				this.table1Markup += "<tr><td>Time Zone</td><td>" + jsob.getString("6. Time Zone") + "</td></tr>";
+				this.table1Markup += "</table>";
+			} else {
+				this.table2Markup = null; // reset table 2 markup before repopulating
+				JsonObject dataJsonObj = mainJsonObj.getJsonObject(key);
+				this.table2Markup += "<table class='table table-hover'>";
+				this.table2Markup += "<thead><tr><th>Timestamp</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr></thead>";
+				this.table2Markup += "<tbody>";
+				int i = 0;
+				for (String subKey : dataJsonObj.keySet()) {
+					JsonObject subJsonObj = dataJsonObj.getJsonObject(subKey);
+					this.table2Markup += "<tr>" + "<td>" + subKey + "</td>" + "<td>" + subJsonObj.getString("1. open")
+							+ "</td>" + "<td>" + subJsonObj.getString("2. high") + "</td>" + "<td>"
+							+ subJsonObj.getString("3. low") + "</td>" + "<td>" + subJsonObj.getString("4. close")
+							+ "</td>" + "<td>" + subJsonObj.getString("5. volume") + "</td>";
+					if (i == 0) {
+						String path = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+						this.table2Markup += "<td><a class='btn btn-success' href='" + path
+								+ "/faces/purchase3.xhtml?symbol=" + symbol + "&price="
+								+ subJsonObj.getString("4. close") + "'>Add to Watch List</a></td>";
+					}
+
+					this.table2Markup += "</tr>";
+					i++;
+					price1 = subJsonObj.getString("4. close");
+				}
+				this.table2Markup += "</tbody></table>";
+			}
+		}
+		return;
+	}
+
+	public void timeseries4() throws MalformedURLException, IOException {
+
+		installAllTrustingManager();
+
+		// System.out.println("selectedItem: " + this.selectedSymbol);
+		// System.out.println("selectedInterval: " + this.selectedInterval);
+		String symbol = this.selectedSymbol;
+		String interval = this.selectedInterval;
+		String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval="
+				+ interval + "&apikey=" + API_KEY;
+
+		this.table1Markup += "URL::: <a href='" + url + "'>Data Link</a><br>";
+		InputStream inputStream = new URL(url).openStream();
+
+		// convert the json string back to object
+		JsonReader jsonReader = Json.createReader(inputStream);
+		JsonObject mainJsonObj = jsonReader.readObject();
+		for (String key : mainJsonObj.keySet()) {
+			if (key.equals("Meta Data")) {
+				this.table1Markup = null; // reset table 1 markup before repopulating
+				JsonObject jsob = (JsonObject) mainJsonObj.get(key);
+				this.table1Markup += "<style>#detail >tbody > tr > td{ text-align:center;}</style><b>Stock Details</b>:<br>";
+				this.table1Markup += "<table>";
+				this.table1Markup += "<tr><td>Information</td><td>" + jsob.getString("1. Information") + "</td></tr>";
+				this.table1Markup += "<tr><td>Symbol</td><td>" + jsob.getString("2. Symbol") + "</td></tr>";
+				this.table1Markup += "<tr><td>Last Refreshed</td><td>" + jsob.getString("3. Last Refreshed")
+						+ "</td></tr>";
+				this.table1Markup += "<tr><td>Interval</td><td>" + jsob.getString("4. Interval") + "</td></tr>";
+				this.table1Markup += "<tr><td>Output Size</td><td>" + jsob.getString("5. Output Size") + "</td></tr>";
+				this.table1Markup += "<tr><td>Time Zone</td><td>" + jsob.getString("6. Time Zone") + "</td></tr>";
+				this.table1Markup += "</table>";
+			} else {
+				this.table2Markup = null; // reset table 2 markup before repopulating
+				JsonObject dataJsonObj = mainJsonObj.getJsonObject(key);
+				this.table2Markup += "<table class='table table-hover'>";
+				this.table2Markup += "<thead><tr><th>Timestamp</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr></thead>";
+				this.table2Markup += "<tbody>";
+				int i = 0;
+				for (String subKey : dataJsonObj.keySet()) {
+					JsonObject subJsonObj = dataJsonObj.getJsonObject(subKey);
+					this.table2Markup += "<tr>" + "<td>" + subKey + "</td>" + "<td>" + subJsonObj.getString("1. open")
+							+ "</td>" + "<td>" + subJsonObj.getString("2. high") + "</td>" + "<td>"
+							+ subJsonObj.getString("3. low") + "</td>" + "<td>" + subJsonObj.getString("4. close")
+							+ "</td>" + "<td>" + subJsonObj.getString("5. volume") + "</td>";
+					if (i == 0) {
+						String path = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
+						this.table2Markup += "<td><a class='btn btn-success' href='" + path
+								+ "/faces/purchase4.xhtml?symbol=" + symbol + "&price="
+								+ subJsonObj.getString("4. close") + "'>Add to Watch List</a></td>";
 					}
 
 					this.table2Markup += "</tr>";

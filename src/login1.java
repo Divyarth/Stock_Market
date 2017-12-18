@@ -16,8 +16,9 @@ import javax.faces.context.FacesContext;
 public class login1 {
 	private String userName;
 	private String password;
-	private String displayUserName;
+	static String displayUserName;
 	static String fullName;
+	static String mid;
 	private String emailID;
 	private String mobileNumber;
 	private String licenseNumber;
@@ -32,6 +33,14 @@ public class login1 {
 	String number;
 
 	public login1() {
+	}
+
+	public static String getMid() {
+		return mid;
+	}
+
+	public static void setMid(String mid) {
+		login1.mid = mid;
 	}
 
 	public String getLicenseNumber() {
@@ -87,7 +96,7 @@ public class login1 {
 	}
 
 	public void setDisplayUserName(String displayUserName) {
-		this.displayUserName = displayUserName;
+		login1.displayUserName = displayUserName;
 	}
 
 	public String getFullName() {
@@ -95,7 +104,7 @@ public class login1 {
 	}
 
 	public void setFullName(String fullName) {
-		this.fullName = fullName;
+		login1.fullName = fullName;
 	}
 
 	public String getEmailID() {
@@ -142,6 +151,7 @@ public class login1 {
 			st.setString(1, this.userName);
 			ResultSet rs = st.executeQuery();
 			rs.next();
+			mid = rs.getString("mid");
 			displayUserName = rs.getString("userName");
 			user = displayUserName;
 			mobileNumber = rs.getString("mobileNumber");
