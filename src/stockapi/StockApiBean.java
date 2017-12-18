@@ -528,7 +528,7 @@ public class StockApiBean {
 			statement.close();
 			conn.close();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully Purchased Stock For Manager", ""));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully Purchased Stock Via Manager", ""));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
