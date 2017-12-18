@@ -103,6 +103,12 @@ public class pageNavigation {
 		return "login";
 	}
 
+	public String logout1() {
+		HttpSession session = SessionUtils.getSession();
+		session.invalidate();
+		return "login";
+	}
+
 	// public static String clientProfileUpdateOutput1() {
 	// return "clientProfileUpdate";
 	// }

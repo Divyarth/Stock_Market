@@ -473,9 +473,9 @@ public class StockApiBean {
 			System.out.println("qty:" + qty);
 			System.out.println("amt:" + amt);
 			statement.executeUpdate(
-					"INSERT INTO `history` (`id`, `uid`, `stock_symbol`, `qty`, `price`, `amt`, `purchasedBy`, `purchaseOrSell`) "
+					"INSERT INTO `history` (`id`, `uid`, `stock_symbol`, `qty`, `price`, `amt`, `purchasedBy`, `purchaseOrSell`, `mid`) "
 							+ "VALUES (NULL,'" + uidd + "','" + symbol + "','" + qty + "','" + price + "','" + amt
-							+ "', '" + pORsBY + "', '" + pORs + "')");
+							+ "', '" + pORsBY + "', '" + pORs + "', '" + mid + "')");
 			System.out.println("history update done");
 			//
 			// String sql1 = "UPDATE purchase SET purchaseOrSell = '" + pORs + "' WHERE uid
@@ -570,9 +570,9 @@ public class StockApiBean {
 			st1.executeUpdate();
 
 			statement.executeUpdate(
-					"INSERT INTO `history` (`id`, `uid`, `stock_symbol`, `qty`, `price`, `amt`, `purchasedBy`, `purchaseOrSell`) "
+					"INSERT INTO `history` (`id`, `uid`, `stock_symbol`, `qty`, `price`, `amt`, `purchasedBy`, `purchaseOrSell`, `mid`) "
 							+ "VALUES (NULL,'" + uidd + "','" + symbol + "','" + qty + "','" + price + "','" + amt
-							+ "', '" + pORsBY + "', '" + pORs + "')");
+							+ "', '" + pORsBY + "', '" + pORs + "', '" + mid + "')");
 			System.out.println("history update done");
 
 			String sql = "SELECT * from clientregister WHERE uid = '" + uidd + "' ";
