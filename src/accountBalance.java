@@ -135,7 +135,7 @@ public class accountBalance {
 		String db_db = System.getenv("ICSI518_DB");
 		String user_user = System.getenv("ICSI518_USER");
 		String password_password = System.getenv("ICSI518_PASSWORD");
-
+		// DB Connection
 		try {
 
 			// Setup the DataSource object
